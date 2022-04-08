@@ -55,7 +55,7 @@ section {
 
 .profile-image {
   position: absolute;
-  top: 40px;
+  top: 50px;
   width: 170px;
   height: 170px;
   border-radius: 50%;
@@ -68,9 +68,12 @@ section {
 
 .section-title-intro {
   background-color: #efefef;
-  padding: 0px 0px 0px 250px;
+  margin-top: 20px;
+  padding: 20px 0px 20px 250px;
   box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
   font-family: "Montserrat";
+  font-size: 16px;
+  font-weight: 500;
 }
 
 /* MAIN */
