@@ -77,15 +77,18 @@ section {
 
 /* PROFILE */
 .profile-content-wrap {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .profile-title {
   font-size: 18px;
+  margin-bottom: 3px;
 }
 
 .profile-content {
   font-family: "Montserrat";
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .profile-connect-wrap {
