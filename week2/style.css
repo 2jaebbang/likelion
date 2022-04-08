@@ -1,0 +1,291 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&family=Oswald:wght@500&display=swap");
+
+* {
+  font-family: "Oswald", sans-serif;
+}
+
+body,
+h1,
+h2 {
+  margin: 0px auto;
+  padding: 0px;
+  max-width: 960px;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: lighter;
+  color: #282828;
+
+  margin-bottom: 16px;
+  padding-bottom: 5px;
+}
+
+p {
+  margin: 0px;
+}
+
+hr {
+  background-color: #c7c7c7;
+  height: 2px;
+  margin: 30px 0px 20px 0px;
+  border: 0px;
+}
+
+section {
+  margin-bottom: 24px;
+}
+
+/* HEADER */
+
+.section-title {
+  position: relative;
+}
+
+.title-name {
+  padding: 50px 0px 0px 250px;
+}
+
+.profile-image {
+  position: absolute;
+  top: 40px;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  border: 3px solid #7c7c7c;
+  background-image: url("../images/profile.jpg");
+  background-size: cover;
+
+  margin: 20px 30px;
+}
+
+.section-title-intro {
+  background-color: #efefef;
+  padding: 0px 0px 0px 250px;
+  box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
+  font-family: "Montserrat";
+}
+
+/* MAIN */
+
+/* PROFILE */
+.profile-content-wrap {
+  margin-bottom: 20px;
+}
+
+.profile-title {
+  font-size: 18px;
+}
+
+.profile-content {
+  font-family: "Montserrat";
+}
+
+.profile-connect-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-wrap {
+  width: 30%;
+  margin: 30px 30px 30px 0px;
+}
+
+.section-profile {
+  position: sticky;
+  top: 50px;
+  padding: 30px;
+  background-color: #efefef;
+  box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+.connect-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 3px solid #7c7c7c;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}
+
+#connect-github {
+  background-image: url("../images/github.png");
+}
+
+#connect-notion {
+  background-image: url("../images/notion.png");
+}
+
+#connect-blog {
+  background-image: url("../images/blogger.png");
+}
+
+/* MAIN */
+
+.section-main {
+  width: 70%;
+  flex-direction: row;
+  width: 610px;
+  margin: 30px auto;
+  padding: 30px;
+  border: 1px solid #ebebeb;
+  box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+.main-content-wrap {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.dsec-wrap {
+  flex: 1;
+}
+
+.title-text {
+  font-size: 16px;
+  font-weight: bold;
+  font-family: "Fira Sans", sans-serif;
+  color: #282828;
+  margin: 0px;
+}
+
+.year-text {
+  font-size: 16px;
+  font-weight: bold;
+  font-family: "Fira Sans", sans-serif;
+  color: #282828;
+  margin: 0px;
+  flex: 1;
+}
+
+.desc-text {
+  font-size: 12px;
+}
+
+.body-wrap {
+  display: flex;
+  flex-flow: row;
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 20px 20px 20px;
+}
+
+.footer-copyright {
+  text-align: center;
+  background-color: #1e1e1e;
+  padding: 20px;
+  color: #919191;
+  font-size: 12px;
+}
+
+/* Progress Bar */
+
+/* Styling the h2 tag by giving color,
+letter spacing, font-size etc.*/
+.progress-bar-container {
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #eee;
+  letter-spacing: 1px;
+  font-size: 15px;
+  padding-bottom: 8px;
+}
+
+/* Styling the border and box
+effect of the progress bar*/
+.progress-bar {
+  display: flex;
+  flex: 1;
+  width: 160px;
+  height: 3px;
+  margin-top: 7px;
+  border: 1px solid #565656;
+  border-radius: 3px;
+  box-shadow: 0 0 2px rgb(117, 115, 112);
+}
+
+.progress-bar-title {
+  display: flex;
+  flex: 1;
+  padding-right: 5px;
+}
+
+/* Stylingthe background color of each
+animation and border radius */
+.percentage {
+  display: block;
+  height: 100%;
+  background-color: #5e5e5e;
+  border-radius: 5px;
+  animation: progress 1500ms ease-in 1;
+}
+
+/* Assigning width of each languages*/
+.javascript {
+  width: 80%;
+}
+
+.typescript {
+  width: 50%;
+}
+
+.react {
+  width: 60%;
+}
+
+.recoil {
+  width: 50%;
+}
+
+.mobx {
+  width: 30%;
+}
+
+.contextapi {
+  width: 75%;
+}
+
+.figma {
+  width: 60%;
+}
+
+.adobexd {
+  width: 50%;
+}
+
+.postman {
+  width: 80%;
+}
+
+.git {
+  width: 80%;
+}
+
+.notion {
+  width: 80%;
+}
+
+.slack {
+  width: 90%;
+}
+
+/* Animating the progress bar by
+initially starting from 0*/
+@keyframes progress {
+  from {
+    width: 0;
+  }
+}
