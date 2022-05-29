@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="resultList.js"></script>
+  </head>
+
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+  <script
+    type="text/javascript"
+    src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-6289a59439a2764a"
+  ></script>
+
+  <body class="container">
+    <div style="text-align: center; margin-top: 100px; margin-bottom: 50px">
+      <a href="index.html"
+        ><img
+          src="https://fontmeme.com/permalink/220528/68b2a821044bdb92ba4c41218809ae3d.png"
+          alt="netflix-type"
+          width="500px"
+        />
+      </a>
+    </div>
+    <article class="start">
+      <button
+        type="button"
+        class="btn btn-light btn-lg mt-5"
+        onclick="start();"
+      >
+        나에게 맞는 넷플릭스 콘텐츠 찾기
+      </button>
+      <button
+        type="button"
+        class="btn btn-light btn-lg mt-5"
+        onclick="location.href='https://www.netflix.com/'"
+      >
+        넷플릭스 보러 가기
+      </button>
+    </article>
+
+    <article class="question">
+      <div class="progress mt-5">
+        <div
+          class="progress-bar bg-danger"
+          role="progressbar"
+          style="width: calc(100 / 12 * 1%)"
+        ></div>
+      </div>
+      <h1 id="title" class="text-center mt-5">질문</h1>
+      <h3 id="content" class="text-center mt-5">내용</h3>
+      <input id="type" type="hidden" value="MD" />
+      <button id="A" type="button" class="btn btn-light btn-lg mt-5">
+        Primary
+      </button>
+      <button id="B" type="button" class="btn btn-light btn-lg mt-5">
+        Primary
+      </button>
+    </article>
+    <article class="result" id="result">
+      <h1 id="resultTitle" class="text-center mt-0">작품제목</h1>
+      <div class="resultImg" id="resultImg"></div>
+      <button
+        type="button"
+        class="retry btn btn-danger btn-lg mt-5 mb-3"
+        onclick="location.href='index.html'"
+      >
+        다시하기
+      </button>
+      <!-- Go to www.addthis.com/dashboard to customize your tools -->
+      <div class="share addthis_inline_share_toolbox"></div>
+    </article>
+    <input type="hidden" id="AB" value="0" />
+    <input type="hidden" id="DE" value="0" />
+    <input type="hidden" id="FG" value="0" />
+    <input type="hidden" id="HI" value="0" />
+    <input type="hidden" id="JK" value="0" />
+
+    <script>
+      let num = 1;
+
+      let netflixQ = {
+        1: {
+          title: "1번 질문",
+          content: "선호하는 타입은?",
+          type: "AB",
+          A: "영화",
+          B: "드라마",
+        },
+        2: {
+          title: "2번 질문",
+          content: "좋아하는 분위기는?",
+          type: "DE",
+          A: "밝은",
+          B: "어두운",
+        },
+        3: {
+          title: "3번 질문",
+          content: "새로운걸 좋아하시나요?",
+          type: "FG",
+          A: "네",
+          B: "별로",
+        },
+        4: {
+          title: "4번 질문",
+          content: "선호하는 국가는?",
+          type: "HI",
+          A: "국내",
+          B: "해외",
+        },
+        5: {
+          title: "5번 질문",
+          content: "어떤게 땡기나요?",
+          type: "JK",
+          A: "정신없는",
+          B: "조용한",
+        },
+      };
+
+      function start() {
+        $(".start").hide();
+        $(".question").show();
+        next();
+      }
+
+      $("#A").click(function () {
+        let type = $("#type").val();
+        let preValue = $("#" + type).val();
+        $("#" + type).val(parseInt(preValue) + 1);
+
+        next();
+      });
+
+      $("#B").click(function () {
+        next();
+      });
+
+      function next() {
+        if (num == 6) {
+          $(".question").hide();
+          $(".result").show();
+          var mbti = "";
+          $("#AB").val() > 0 ? (mbti += "A") : (mbti += "B");
+          $("#DE").val() > 0 ? (mbti += "D") : (mbti += "E");
+          $("#FG").val() > 0 ? (mbti += "F") : (mbti += "G");
+          $("#HI").val() > 0 ? (mbti += "H") : (mbti += "I");
+          $("#JK").val() > 0 ? (mbti += "J") : (mbti += "K");
+          $("#resultImg").css({
+            "background-image": `url(${result[mbti]["img"]})`,
+          });
+          $("#resultTitle").html(result[mbti]["title"]);
+        } else {
+          $(".progress-bar").attr("style", "width: calc(100/5*" + num + "%)");
+          $("#title").html(netflixQ[num]["title"]);
+          $("#content").html(netflixQ[num]["content"]);
+          $("#type").val(netflixQ[num]["type"]);
+          $("#A").html(netflixQ[num]["A"]);
+          $("#B").html(netflixQ[num]["B"]);
+          num++;
+        }
+      }
+
+      const result = {
+        ADFHJ: {
+          title: "토이스토리",
+          img: "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201906/26/e09b0a0b-07c3-4115-93c9-d67ef1d22896.jpg",
+        },
+        ADFHK: {
+          title: "리틀 포레스트",
+          img: "https://mblogthumb-phinf.pstatic.net/20150329_85/dglove2004_14276200043673dGXE_JPEG/%B8%AE%C6%B2%C6%F7%B7%B9%BD%BA%C6%AE03.jpg?type=w2",
+        },
+        ADFIJ: {
+          title: "토이스토리",
+          img: "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201906/26/e09b0a0b-07c3-4115-93c9-d67ef1d22896.jpg",
+        },
+        ADFIK: {
+          title: "토이스토리",
+          img: "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201906/26/e09b0a0b-07c3-4115-93c9-d67ef1d22896.jpg",
+        },
+        ADGHK: {
+          title: "리틀 포레스트",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABWTByGXWzdN1VguHgoe0Qi-WxS9epLbQV8W8nXGxvmRgddEfjGmiJvZhi4XOqi7nar4FJLoCac5qMEkZzoS18W9ccjc4IpjAdOE.webp?r=bd1",
+        },
+        ADGIJ: {
+          title: "19곰 테드",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABR089XRPGF-ZOuHAWLtiKMMeRHvMkFKZXdJPlT8CkETLlOP9IGv8IY4_lIGTBKbYgCuVnvprd2rUHoUyY6kpKhdfWVhZTdSgNRk.webp?r=00c",
+        },
+        ADGIK: {
+          title: "인턴",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABUwkonGrU6oakGmrbvB5eVmUwztY5dfd2hScPqaEFwvm6wbIKA5bUESeYD6l2wsbWOZJhIOUl_x6tPCUpbJ_p6orWembUSZQH4g.webp?r=14c",
+        },
+        AEFHJ: {
+          title: "인턴",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABUwkonGrU6oakGmrbvB5eVmUwztY5dfd2hScPqaEFwvm6wbIKA5bUESeYD6l2wsbWOZJhIOUl_x6tPCUpbJ_p6orWembUSZQH4g.webp?r=14c",
+        },
+        AEFHK: {
+          title: "트와일라잇",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABWe33eoeyFVWndpqNIgUn5oS2PsPMObwxXcU9MFUq0tW4oYxeBVy14G4zJ72N9hfpKkdyUbPCQX_jnlFvSqwOhA0fQfgnTO9CkQ.webp?r=f5b",
+        },
+        AEGHJ: {
+          title: "낙원의 밤",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABdB-27ZoL1U6w_eKYZwZWtlsnxV0ifM1zZCXNoh80nECL3rzFJkOskO9W_yPgQU0wLwSyAIQHOrNS450As-JzkzfhpOunuHXdtYy46L31-JMUhFPXZF3EQCTD2UZcvUhC6BX.jpg?r=91f",
+        },
+        AEGHK: {
+          title: "신세계",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABUBQNx4RRy-QDnV1o7L8zAboOpHpF_gy0eyJM5Nt7wPU3jU2xukKffWM9hLLpfed4gbJsuHFqmpaBp2AkL6fCZJ_ucdEznri7VQ.webp?r=978",
+        },
+        AEFHJ: {
+          title: "신세계",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABUBQNx4RRy-QDnV1o7L8zAboOpHpF_gy0eyJM5Nt7wPU3jU2xukKffWM9hLLpfed4gbJsuHFqmpaBp2AkL6fCZJ_ucdEznri7VQ.webp?r=978",
+        },
+        AEFHK: {
+          title: "신세계",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABUBQNx4RRy-QDnV1o7L8zAboOpHpF_gy0eyJM5Nt7wPU3jU2xukKffWM9hLLpfed4gbJsuHFqmpaBp2AkL6fCZJ_ucdEznri7VQ.webp?r=978",
+        },
+        AEGIJ: {
+          title: "샌 안드레아스",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABT5pkEqgKZHFDjzQrLj6JhAeQbLZVyf0PKbI88oe-6cRm5DgRoAKrNhnWD7qbys4FdJM_ZmEiAL_0D4IuzMqzPHwXzxZd0vwcYk.webp?r=f21",
+        },
+        AEGIK: {
+          title: "돈룩업",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABaKUuktYuOQxHuOxuXo-ZlAbWnJ3btuEZMwBAkCioFGQCuMbH-EGkFCC9u7qPJu5ZC7b3TbM8KYca5hHKWWH1MBsRWR2rl2dfQDUbNzBX3j8lH6wu5qIA0tF7G0u3hSBC57m.jpg?r=371",
+        },
+
+        BDFHJ: {
+          title: "그린마더스클럽",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABdV29bI6yy8aWGig9VGJL5-GdX8C5NzfcCHOBVhmhuIWypnt9eWA8PyEdzQoAawm6hPxa3cc0G746dxLLIz5BV2IHTgU6LBKdS5aSu3Za_ZzsiITIqXmjXd2HGTPqfFF1Xm9hJJ5LX05nMF7ATf1Kl9fRAZXGnddQrbOG-bY67lCgHlJ9W2YGEgcZ9B3Anbe-gHh.webp?r=7d9",
+        },
+        BDFHK: {
+          title: "나의 아저씨",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABT43Ze2UxlKNJm977cYD9TIAo_QpO1optVNqaY4LH0laYY6GzMTRAYRhmH81FWBR95GPbGSMtZ9irI3eRExCqbLtcUufm5Hi4KM.webp?r=a6c",
+        },
+        BDFIJ: {
+          title: "종이의집",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABSV4lUU0zQWSD9YnqhvSmAPFEx1DZIhXOgwW4AXPeFBS9WYETbN-vYN9drZ7HdbhBQ2jerBkpORbPHc3jIznIDfzHnV2XTpCAuiHloT6kv_dNkgnv7Tf1K87MrC827vP2A93.jpg?r=777",
+        },
+        BDFIK: {
+          title: "러브 데스 로봇",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABb9uo6RqK1kRjhK6tCKHFZqNZRbaRIZ2FSwlVa6prL9SSkTv2u4x0uctsZyTGKgQFTPYtzifuGZFddj-sfCsD30ZixrZwenIIg50ydvYJhOwVbl6mzkCGqEDSb75BUo0dxNxyg-kOr4Egcbx7StrN0oVoKezR8utibW4Mg.jpg?r=de2",
+        },
+        BDGHJ: {
+          title: "냉면 랩소디",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABTUIXF4cbzLHBpqIsugjH1xF9wO7IkRxv5xA1k9DJ-ge7KoUQi1UA-YmoR_c9_GDD4J_Ov9Twxbj-_TL10pbWBscrIkKvRx_dd0.webp?r=cbe",
+        },
+        BDGHK: {
+          title: "미스터션샤인",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABb8g8MGqeO1IDWAuNVR1fYURhLiZFHvVldrCqoNwwOsBvulPigUF3ueljLYhOhk5NJqub_SFnUbyK7nOTCG502EXsLZ_dkDjXkU.webp?r=6aa",
+        },
+        BDGIJ: {
+          title: "더크라운",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABY4e7kUGyN06Ch2Cz7PabNizKs0mqslQuSjZkl_3ma_u_KknLa5gRj-TUjKME3gr_PUL4EDRB_SYRWwjKGbKPQrpNvZA4XsrzViHDzXraSe4-2l823LfNKl61wDbe3R4Bzxs.jpg?r=544",
+        },
+        BDGIK: {
+          title: "더크라운",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABY4e7kUGyN06Ch2Cz7PabNizKs0mqslQuSjZkl_3ma_u_KknLa5gRj-TUjKME3gr_PUL4EDRB_SYRWwjKGbKPQrpNvZA4XsrzViHDzXraSe4-2l823LfNKl61wDbe3R4Bzxs.jpg?r=544",
+        },
+        BEFHJ: {
+          title: "스물다섯 스물하나",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABZCn0v1RkJCVj4q2DnJhxR37HbYDhEi7gW89b9R5EqiwaIZY7C47kk99pns6l4SOK2ZbccDwAGNYtzkfCa9eWj7XezR9NVSjeuzp6L8AKR3l1A2DG61qdwak7a1MqO1pd-bu8yEwq1jyj8mQ6ror4Nh79K0-PynAeD8.webp?r=ea6",
+        },
+        BEFHK: {
+          title: "사내맞선",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABeqrlgScBRNmRYzSHCbTJQwPDfRIJd8SEq5L7nisuZUrTpsR2yYqepxswx_5ETRPBI4-gMXRc3jZE74cpSKS3FHmnn7ZEKzh35Y.webp?r=857",
+        },
+        BEGHJ: {
+          title: "나의 해방일지",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABSb72HOp2DzQm0iNFVsoWh68IKJl4IJ8L_EYID1YBmSool_ib3JAS7tOVhuHg3KGsGruTFxT6z92_sdO-2I_DX4RZ3HVvdCpQLguWVb518esfnckmeenVhqKi3M5UdWZ10lmMEcfY1tx_cxSJrajLuUCO3hQzd_w2Dbb9i7LxXV2sGo4dvahlE0pidXIKR0zhAlq.webp?r=ebb",
+        },
+        BEGHK: {
+          title: "오징어게임",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABUg54ta9-xRwKrNIyFOlRa32_Lj6SKVtrIB3oxr9mxnM8PiHrSG222tlIYqUA2D5WaVQQN8fqXnh820xhm7aYAUt9F5Ctka5v9ljs4reoJwG_3Sk6YLIkT4Enbryk1YQOVsd.jpg?r=035",
+        },
+        BEFHJ: {
+          title: "소년심판",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABchnRC00CKJA4pvS7pUkNooYYf_ULJUORyOzxnl5vi1rZGrvMztDFxcqPDAxZ-tYmltFOycArfnwFrJ2Yqx-MPDh3-1CXhWR-NKa7QrYk45jI_0WA-gQmtoeY7aVUuS6OLNY.jpg?r=6da",
+        },
+        BEFHK: {
+          title: "우리들의 블루스",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABTB6kp6N6Pblhv2tdKp6KOi3bJIfrkCz5QTZ1yZvFwIT_2VCzNCdLxowA40aAr5q1neSpNock4fuiEm_lFjs2alePPXcCA-L1TLGRtDfvUymP29NMb_9V7jb_jbuYKfsgfNX8mFK0AwhlkzT7pQnKOh-2G3xc4Re1yUZXqzkyFEaYBa5VF7RDZhCHY9KqfSPLkg-.webp?r=c58",
+        },
+        BEGIJ: {
+          title: "기묘한 이야기",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABQgrx6IwkIftG810jO5dmsYM-wCKAMih2plgXKBJriQRs90Ep0SQbQqPZXGq9EVaeOor5xv1IgGJIAYRqKUzCuhrpKL30rz1qTs0KHpqk3GKPQjipmjixQpR94Svpt666BaZ-v5iaY1zqaFqO3pObAFrp4wE9MEepyastawCQNPQ7xNFOH_ZAZvu267ajbSyWAQ6piloTXBSvxmvVULwX7AQLKRvrz7G.jpg?r=e2a",
+        },
+        BEGIK: {
+          title: "기묘한 이야기",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABQgrx6IwkIftG810jO5dmsYM-wCKAMih2plgXKBJriQRs90Ep0SQbQqPZXGq9EVaeOor5xv1IgGJIAYRqKUzCuhrpKL30rz1qTs0KHpqk3GKPQjipmjixQpR94Svpt666BaZ-v5iaY1zqaFqO3pObAFrp4wE9MEepyastawCQNPQ7xNFOH_ZAZvu267ajbSyWAQ6piloTXBSvxmvVULwX7AQLKRvrz7G.jpg?r=e2a",
+        },
+        BEFIJ: {
+          title: "기묘한 이야기",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABQgrx6IwkIftG810jO5dmsYM-wCKAMih2plgXKBJriQRs90Ep0SQbQqPZXGq9EVaeOor5xv1IgGJIAYRqKUzCuhrpKL30rz1qTs0KHpqk3GKPQjipmjixQpR94Svpt666BaZ-v5iaY1zqaFqO3pObAFrp4wE9MEepyastawCQNPQ7xNFOH_ZAZvu267ajbSyWAQ6piloTXBSvxmvVULwX7AQLKRvrz7G.jpg?r=e2a",
+        },
+        BEFIK: {
+          title: "브레이킹 배드",
+          img: "https://occ-0-1360-395.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABQ2eejwOmFWqyOd0caBviCBDM1tWDBRunzwQDiD-3eeBNp7Wy-dCxxPsm5zxpuSRyh5E0gZAejeJp20KYnrJZefTBkyGu9etx2k.webp?r=01d",
+        },
+      };
+    </script>
+  </body>
+</html>
