@@ -8,6 +8,8 @@ const options = {
   },
 };
 
+const modal = document.querySelector(".modal");
+
 const now_playingURL =
   "https://api.themoviedb.org/3/movie/now_playing?api_key=" +
   APIKEY +
@@ -21,6 +23,26 @@ fetch(now_playingURL, options)
 
       let movie = document.createElement("li");
       let moviediv = document.createElement("div");
+      moviediv.dataset.movieId = element.id;
+      moviediv.style.cursor = "pointer";
+
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          modal.classList.toggle("show");
+
+          if (modal.classList.contains("show")) {
+            modal.classList.remove("show");
+          }
+        }
+      });
+
+      moviediv.addEventListener("click", () => {
+        let id = moviediv.dataset.movieId;
+        modal.classList.toggle("show");
+
+        getMovieDetail(id);
+      });
+
       let backdrop = document.createElement("img");
       backdrop.setAttribute("src", IMAGE_URL + element.backdrop_path);
       let title = document.createElement("h4");
@@ -46,7 +68,26 @@ fetch(popularURL, options)
     response.results.forEach((element) => {
       let movie = document.createElement("li");
       let moviediv = document.createElement("div");
-      let backdrop = document.createElement("img");
+      moviediv.dataset.movieId = element.id;
+      moviediv.style.cursor = "pointer";
+
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          modal.classList.toggle("show");
+
+          if (modal.classList.contains("show")) {
+            modal.classList.remove("show");
+          }
+        }
+      });
+
+      moviediv.addEventListener("click", () => {
+        let id = moviediv.dataset.movieId;
+        modal.classList.toggle("show");
+
+        getMovieDetail(id);
+      });
+
       backdrop.setAttribute("src", IMAGE_URL + element.backdrop_path);
       let title = document.createElement("h4");
       title.innerText = element.title;
@@ -71,6 +112,26 @@ fetch(top_ratedURL, options)
     response.results.forEach((element) => {
       let movie = document.createElement("li");
       let moviediv = document.createElement("div");
+      moviediv.dataset.movieId = element.id;
+      moviediv.style.cursor = "pointer";
+
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          modal.classList.toggle("show");
+
+          if (modal.classList.contains("show")) {
+            modal.classList.remove("show");
+          }
+        }
+      });
+
+      moviediv.addEventListener("click", () => {
+        let id = moviediv.dataset.movieId;
+        modal.classList.toggle("show");
+
+        getMovieDetail(id);
+      });
+
       let backdrop = document.createElement("img");
       backdrop.setAttribute("src", IMAGE_URL + element.backdrop_path);
       let title = document.createElement("h4");
@@ -96,6 +157,26 @@ fetch(upcomingURL, options)
     response.results.forEach((element) => {
       let movie = document.createElement("li");
       let moviediv = document.createElement("div");
+      moviediv.dataset.movieId = element.id;
+      moviediv.style.cursor = "pointer";
+
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          modal.classList.toggle("show");
+
+          if (modal.classList.contains("show")) {
+            modal.classList.remove("show");
+          }
+        }
+      });
+
+      moviediv.addEventListener("click", () => {
+        let id = moviediv.dataset.movieId;
+        modal.classList.toggle("show");
+
+        getMovieDetail(id);
+      });
+
       let backdrop = document.createElement("img");
       backdrop.setAttribute("src", IMAGE_URL + element.backdrop_path);
       let title = document.createElement("h4");
@@ -109,3 +190,25 @@ fetch(upcomingURL, options)
       upcoming.appendChild(movie);
     })
   );
+
+function getMovieDetail(id) {
+  const detailMovieURL =
+    `https://api.themoviedb.org/3/movie/${id}?api_key=` +
+    APIKEY +
+    "&language=en-US";
+  fetch(detailMovieURL, options)
+    .then((response) => response.json())
+    .then((response) => {
+      let poster = document.getElementById("poster");
+      poster.setAttribute("src", IMAGE_URL + response.backdrop_path);
+
+      let title = document.getElementById("title");
+      title.innerText = response.original_title;
+
+      let releaseDate = document.getElementById("release_date");
+      releaseDate.innerText = response.release_date;
+
+      let overview = document.getElementById("overview");
+      overview.innerText = response.overview;
+    });
+}
